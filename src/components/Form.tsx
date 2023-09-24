@@ -1,4 +1,11 @@
-function Form() {
+import { useState } from 'react';
+
+type FormProps = {
+  setDisplayForm: (display: boolean) => void
+};
+
+function Form({ setDisplayForm }: FormProps) {
+  const handleClear = () => setDisplayForm(false);
   return (
 
     <form action="">
@@ -18,7 +25,8 @@ function Form() {
         URL
         <input type="text" id="url" />
         <button>Cadastrar</button>
-        <button>Cancelar</button>
+        <button onClick={ handleClear }>Cancelar</button>
+
       </label>
     </form>
   );
