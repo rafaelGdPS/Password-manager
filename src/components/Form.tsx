@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
 import { InitialValueType, List } from './types';
 
 type FormProps = {
   setDisplayForm: (display: boolean) => void
-  initialValue: InitialValueType;
   setRegisterList: (list: List) => void,
   registerList: List,
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  inputValue: InitialValueType
 };
 
 function Form({
-  setDisplayForm, initialValue, setRegisterList, registerList }: FormProps) {
-  const [inputValue, setInputValue] = useState(initialValue);
+  setDisplayForm,
+  inputValue, setRegisterList, registerList, handleChange }: FormProps) {
   const { login, senha, serviceName, url } = inputValue;
 
   const handleRegisterClick = () => {
@@ -19,26 +19,17 @@ function Form({
   };
 
   const handleClear = () => setDisplayForm(false);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
+
   const passwordLengthMin = senha.length > 8;
   const passwordLengthMax = senha.length < 16;
   const validateNumberAndLetter = /^(?=.*[0-9])(?=.*[a-z])/.test(senha);
   const validateEspecialCharacter = /(?=.*[!#@$%&])/.test(senha);
-  console.log(validateEspecialCharacter);
 
   const validatePassword = passwordLengthMin
   && passwordLengthMax && validateNumberAndLetter && validateEspecialCharacter;
   const validateInputs = serviceName === '' || login === '';
-  console.log(validateInputs);
 
   const disable = validateInputs || !validatePassword;
-  console.log(disable);
 
   return (
 

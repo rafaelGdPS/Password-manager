@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Form from './components/Form';
 import { InitialValueType, List } from './components/types';
 import RegisterList from './components/lista-de-cadastro';
@@ -14,7 +14,21 @@ const initialValue = {
 function App() {
   const [displayForm, setDisplayForm] = useState(false);
   const [registerList, setRegisterList] = useState<List>([]);
+  const [inputValue, setInputValue] = useState(initialValue);
+  const [checked, setChecked] = useState(false);
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, type } = event.target;
+    const newValue = type === 'checkbox'
+      ? (event.target as HTMLInputElement).checked : event.target.value;
+    setInputValue({
+      ...inputValue,
+      [name]: newValue,
+    });
+  };
+  const handleChecked = () => {
+    setChecked((check) => !check);
+  };
   const handleClear = (id: string) => {
     setRegisterList(registerList.filter(({ login }) => login !== id));
   };
@@ -26,7 +40,8 @@ function App() {
       <h1>Gerenciador de senhas</h1>
       { displayForm
         ? <Form
-            initialValue={ initialValue }
+            inputValue={ inputValue }
+            handleChange={ handleChange }
             setDisplayForm={ setDisplayForm }
             setRegisterList={ setRegisterList }
             registerList={ registerList }
@@ -37,7 +52,12 @@ function App() {
         ? (
           <div>
             <h2>Senhas cadastradas</h2>
-            <RegisterList handleClear={ handleClear } registerList={ registerList } />
+            <RegisterList
+              onChange={ handleChecked }
+              checked={ checked }
+              handleClear={ handleClear }
+              registerList={ registerList }
+            />
           </div>
         )
         : <h2>Nenhuma senha cadastrada</h2>
