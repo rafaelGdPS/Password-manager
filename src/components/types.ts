@@ -4,3 +4,5 @@ export type InitialValueType = {
   serviceName: string,
   url: string,
 };
+
+export type List = InitialValueType[];

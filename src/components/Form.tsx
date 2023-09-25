@@ -1,7 +1,10 @@
 import { InitialValueType, List } from './types';
 
 type FormProps = {
-  setDisplayForm: (display: boolean) => void
+  handleReset: () => void
+  initiaValue: InitialValueType
+  setInputValue: (inicial: InitialValueType) => void
+  setDisplayForm: () => void
   setRegisterList: (list: List) => void,
   registerList: List,
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -10,15 +13,17 @@ type FormProps = {
 
 function Form({
   setDisplayForm,
-  inputValue, setRegisterList, registerList, handleChange }: FormProps) {
+  inputValue, setRegisterList,
+  registerList, handleChange, initiaValue, setInputValue, handleReset }: FormProps) {
   const { login, senha, serviceName, url } = inputValue;
 
   const handleRegisterClick = () => {
-    setDisplayForm(false);
     setRegisterList([...registerList, inputValue]);
+    setDisplayForm();
+    handleReset();
   };
 
-  const handleClear = () => setDisplayForm(false);
+  const handleClear = () => setDisplayForm();
 
   const passwordLengthMin = senha.length > 8;
   const passwordLengthMax = senha.length < 16;

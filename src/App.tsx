@@ -17,13 +17,14 @@ function App() {
   const [inputValue, setInputValue] = useState(initialValue);
   const [checked, setChecked] = useState(false);
 
+  const handleReset = () => {
+    setInputValue(initialValue);
+  };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, type } = event.target;
-    const newValue = type === 'checkbox'
-      ? (event.target as HTMLInputElement).checked : event.target.value;
+    const { name, value } = event.target;
     setInputValue({
       ...inputValue,
-      [name]: newValue,
+      [name]: value,
     });
   };
   const handleChecked = () => {
@@ -40,9 +41,10 @@ function App() {
       <h1>Gerenciador de senhas</h1>
       { displayForm
         ? <Form
+            handleReset={ handleReset }
             inputValue={ inputValue }
             handleChange={ handleChange }
-            setDisplayForm={ setDisplayForm }
+            setDisplayForm={ handleClick }
             setRegisterList={ setRegisterList }
             registerList={ registerList }
         />
