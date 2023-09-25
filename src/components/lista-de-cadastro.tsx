@@ -2,9 +2,10 @@ import { List } from './types';
 
 type RegisterListProps = {
   registerList: List
+  handleClear: (login: string) => void;
 };
 
-function RegisterList({ registerList }: RegisterListProps) {
+function RegisterList({ registerList, handleClear }: RegisterListProps) {
   return registerList.map(({ serviceName, login, url, senha }) => (
     <div key={ login }>
       <a href={ url }>{serviceName}</a>
@@ -18,6 +19,13 @@ function RegisterList({ registerList }: RegisterListProps) {
         {' '}
         {senha}
       </p>
+      <button
+        data-testid="remove-btn"
+        onClick={ () => handleClear(login) }
+      >
+        Limpar
+
+      </button>
     </div>
   ));
 }

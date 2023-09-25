@@ -15,6 +15,9 @@ function App() {
   const [displayForm, setDisplayForm] = useState(false);
   const [registerList, setRegisterList] = useState<List>([]);
 
+  const handleClear = (id: string) => {
+    setRegisterList(registerList.filter(({ login }) => login !== id));
+  };
   const handleClick = () => {
     setDisplayForm(() => !displayForm);
   };
@@ -29,12 +32,16 @@ function App() {
             registerList={ registerList }
         />
         : <button onClick={ handleClick }>Cadastrar nova senha</button> }
-      {registerList.length !== 0
-        ? <div>
-          <h2>Senhas cadastradas</h2>
-          <RegisterList registerList={ registerList } />
+      {
+      registerList.length !== 0
+        ? (
+          <div>
+            <h2>Senhas cadastradas</h2>
+            <RegisterList handleClear={ handleClear } registerList={ registerList } />
           </div>
-        : <h2>Nenhuma senha cadastrada</h2>}
+        )
+        : <h2>Nenhuma senha cadastrada</h2>
+}
     </div>
   );
 }

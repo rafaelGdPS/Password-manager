@@ -98,10 +98,10 @@ function Form({
           onChange={ handleChange }
           required
         />
-        <button disabled={ disable } onClick={ handleRegisterClick }>Cadastrar</button>
-        <button onClick={ handleClear }>Cancelar</button>
-
       </label>
+      <button disabled={ disable } onClick={ handleRegisterClick }>Cadastrar</button>
+      <button onClick={ handleClear }>Cancelar</button>
+
     </form>
   );
 }
