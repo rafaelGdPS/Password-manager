@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { InitialValueType, List } from './types';
 
 type FormProps = {
   setDisplayForm: (display: boolean) => void
+  initialValue: InitialValueType;
+  setRegisterList: (list: List) => void,
+  registerList: List,
 };
 
-const initialValue = {
-  login: '',
-  senha: '',
-  serviceName: '',
-  url: '',
-};
-
-function Form({ setDisplayForm }: FormProps) {
+function Form({
+  setDisplayForm, initialValue, setRegisterList, registerList }: FormProps) {
   const [inputValue, setInputValue] = useState(initialValue);
   const { login, senha, serviceName, url } = inputValue;
+
+  const handleRegisterClick = () => {
+    setDisplayForm(false);
+    setRegisterList([...registerList, inputValue]);
+  };
 
   const handleClear = () => setDisplayForm(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +98,7 @@ function Form({ setDisplayForm }: FormProps) {
           onChange={ handleChange }
           required
         />
-        <button disabled={ disable }>Cadastrar</button>
+        <button disabled={ disable } onClick={ handleRegisterClick }>Cadastrar</button>
         <button onClick={ handleClear }>Cancelar</button>
 
       </label>
