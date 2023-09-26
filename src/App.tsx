@@ -30,9 +30,7 @@ function App() {
   const handleChecked = () => {
     setChecked((check) => !check);
   };
-  const handleShowPassword = () => {
-    checked === true;
-  };
+
   const handleClear = (id: string) => {
     setRegisterList(registerList.filter(({ login }) => login !== id));
   };
