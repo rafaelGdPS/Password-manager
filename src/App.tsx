@@ -30,6 +30,9 @@ function App() {
   const handleChecked = () => {
     setChecked((check) => !check);
   };
+  const handleShowPassword = () => {
+    checked === true;
+  };
   const handleClear = (id: string) => {
     setRegisterList(registerList.filter(({ login }) => login !== id));
   };
@@ -41,6 +44,8 @@ function App() {
       <h1>Gerenciador de senhas</h1>
       { displayForm
         ? <Form
+            handleChecked={ handleChecked }
+            checked={ checked }
             handleReset={ handleReset }
             inputValue={ inputValue }
             handleChange={ handleChange }

@@ -1,9 +1,11 @@
+import React from 'react';
+import Swal from 'sweetalert2';
 import { InitialValueType, List } from './types';
 
 type FormProps = {
+  handleChecked: () => void
+  checked: boolean
   handleReset: () => void
-  initiaValue: InitialValueType
-  setInputValue: (inicial: InitialValueType) => void
   setDisplayForm: () => void
   setRegisterList: (list: List) => void,
   registerList: List,
@@ -14,11 +16,18 @@ type FormProps = {
 function Form({
   setDisplayForm,
   inputValue, setRegisterList,
-  registerList, handleChange, initiaValue, setInputValue, handleReset }: FormProps) {
+  registerList, handleChange, handleReset, checked, handleChecked }: FormProps) {
   const { login, senha, serviceName, url } = inputValue;
 
   const handleRegisterClick = () => {
     setRegisterList([...registerList, inputValue]);
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Serviço cadastrado com sucesso',
+      showConfirmButton: false,
+      timer: 1500,
+    });
     setDisplayForm();
     handleReset();
   };
@@ -64,12 +73,18 @@ function Form({
       <label htmlFor="password">
         Senha
         <input
-          type="password"
+          type={ checked === true ? 'text' : 'password' }
           name="senha"
           id="password"
           value={ senha }
           onChange={ handleChange }
           required
+        />
+        <input
+          checked={ checked }
+          type="checkbox"
+          data-testid="show-hide-form-password"
+          onChange={ handleChecked }
         />
         {passwordLengthMin
           ? <p className="valid-password-check">Possuir 8 ou mais caracteres</p>
