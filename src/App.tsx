@@ -16,6 +16,7 @@ function App() {
   const [registerList, setRegisterList] = useState<List>([]);
   const [inputValue, setInputValue] = useState(initialValue);
   const [checked, setChecked] = useState(false);
+  console.log(inputValue);
 
   const handleReset = () => {
     setInputValue(initialValue);
